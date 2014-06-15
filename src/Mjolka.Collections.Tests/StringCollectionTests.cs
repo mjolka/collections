@@ -74,6 +74,13 @@
         }
 
         [Test]
+        public void StringCollectionContainsDoesNotReturnTrueForPrefix()
+        {
+            var strings = new StringCollection(new[] { "ab" });
+            Assert.IsFalse(strings.Contains("a"));
+        }
+
+        [Test]
         public void StringCollectionEnumeratorWorksAfterReset()
         {
             var testCase = ReadDictionary();

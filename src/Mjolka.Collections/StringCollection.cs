@@ -142,7 +142,7 @@ namespace Mjolka.Collections
                 state = nextState;
             }
 
-            return true;
+            return state.IsFinal;
         }
 
         /// <summary>
