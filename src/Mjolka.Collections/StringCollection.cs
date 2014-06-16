@@ -130,8 +130,7 @@ namespace Mjolka.Collections
             }
 
             var state = this.initialState;
-            var chars = value.ToCharArray();
-            foreach (var c in chars)
+            foreach (var c in value.ToCharArray())
             {
                 var nextState = state.Transition(c);
                 if (nextState == null)
@@ -192,12 +191,11 @@ namespace Mjolka.Collections
             while (stack.Count > 0)
             {
                 var state = stack.Pop();
-                if (seen.Contains(state))
+                if (!seen.Add(state))
                 {
                     continue;
                 }
 
-                seen.Add(state);
                 foreach (var child in state.Children)
                 {
                     stack.Push(child.State);
@@ -226,8 +224,7 @@ namespace Mjolka.Collections
                 state = newState;
             }
 
-            var finalState = new FinalState();
-            state.AddEdge(suffix[length], finalState);
+            state.AddEdge(suffix[length], new FinalState());
         }
 
         /// <summary>
@@ -621,8 +618,7 @@ namespace Mjolka.Collections
             public int GetHashCode(State obj)
             {
                 var result = obj.IsFinal ? 17 : 521;
-                var children = obj.Children;
-                foreach (var child in children)
+                foreach (var child in obj.Children)
                 {
                     result = (31 * result) + child.Label.GetHashCode();
                     result = (31 * result) + child.State.GetHashCode();
