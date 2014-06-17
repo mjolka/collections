@@ -617,14 +617,17 @@ namespace Mjolka.Collections
             /// <inheritdoc />
             public int GetHashCode(State obj)
             {
-                var result = obj.IsFinal ? 17 : 521;
-                foreach (var child in obj.Children)
+                unchecked
                 {
-                    result = (31 * result) + child.Label.GetHashCode();
-                    result = (31 * result) + child.State.GetHashCode();
+                    var result = obj.IsFinal ? 17 : 521;
+                    foreach (var child in obj.Children)
+                    {
+                        result = (31 * result) + child.Label.GetHashCode();
+                        result = (31 * result) + child.State.GetHashCode();
+                    }
+    
+                    return result;
                 }
-
-                return result;
             }
         }
     }
